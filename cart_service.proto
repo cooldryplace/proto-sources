@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package cooldryplace.protobuf;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/cooldryplace/proto";
+
+// LineItem represents an SKU with quantity.
+message LineItem {
+	int64 productId = 1;
+	int64 quantity = 2;
+}
+
+// Cart holds selected LineItems.
+message Cart {
+	int64 id = 1;
+	int64 userId = 2;
+	google.protobuf.Timestamp createdAt = 3; 
+	google.protobuf.Timestamp updatedAt = 4; 
+	repeated LineItem items = 5;
+}
+
+// CartCreateRequest is used to create new Cart for User ID.
+message CartCreateRequest {
+	int64 userId = 1;
+}
+
+// CartRequest is used to fetch data about Cart state.
+message CartRequest {
+	int64 userId = 1;
+}
+
+// CartResponse is used to return Cart details.
+message CartResponse {
+	Cart cart = 1;
+}
+
+// CartDeleteRequest is used to identify Cart that should be removed.
+message CartDeleteRequest {
+	int64 id = 1;
+}
+
+// AddProductRequest provides a way to specify what SKU should be added to a Cart.
+message AddProductRequest {
+	int64 productId = 1;
+	int64 quantity = 2;
+}
+
+// DelProductRequest provides data to identify Cart that needs to be deleted.
+message DelProductRequest {
+	int64 productId = 1;
+	int64 quantity = 2;
+}
+
+// EmptyCartRequest is used to remove all LineItems from a Cart.
+message EmptyCartRequest {
+	int64 cartId = 1;
+}
+
+// Carts service provides interface to work with shopping carts.
+service Carts {
+	// CreateCart will create new Cart for User ID.
+	rpc CreateCart(CartCreateRequest) returns (CartResponse) {}
+
+	// GetCart returns current state of a Cart.
+	rpc GetCart(CartRequest) returns (CartResponse) {}
+
+	// EmptyCart will remove all LineItems from the Cart.
+	rpc EmptyCart(EmptyCartRequest) returns (google.protobuf.Empty) {}
+
+	// DeleteCart with provided Cart ID.
+	rpc DeleteCart(CartDeleteRequest) returns (google.protobuf.Empty) {}
+
+	// AddProduct to existing Cart.
+	rpc AddProduct(AddProductRequest) returns (google.protobuf.Empty) {}
+
+	// DelProduct from existing Cart.
+	rpc DelProduct(DelProductRequest) returns (google.protobuf.Empty) {}
+}
