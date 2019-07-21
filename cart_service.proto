@@ -10,7 +10,7 @@ option go_package = "github.com/cooldryplace/proto";
 // LineItem represents an SKU with quantity.
 message LineItem {
 	int64 productId = 1;
-	int64 quantity = 2;
+	uint32 quantity = 2;
 }
 
 // Cart holds selected LineItems.
@@ -45,7 +45,7 @@ message CartDeleteRequest {
 // AddProductRequest provides a way to specify what SKU should be added to a Cart.
 message AddProductRequest {
 	int64 productId = 1;
-	int64 quantity = 2;
+	uint32 quantity = 2;
 	int64 cartId = 3;
 }
 
