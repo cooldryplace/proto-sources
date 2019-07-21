@@ -46,12 +46,13 @@ message CartDeleteRequest {
 message AddProductRequest {
 	int64 productId = 1;
 	int64 quantity = 2;
+	int64 cartId = 3;
 }
 
 // DelProductRequest provides data to identify Cart that needs to be deleted.
 message DelProductRequest {
 	int64 productId = 1;
-	int64 quantity = 2;
+	int64 cartId = 2;
 }
 
 // EmptyCartRequest is used to remove all LineItems from a Cart.
