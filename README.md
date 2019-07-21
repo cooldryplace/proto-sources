@@ -6,4 +6,15 @@ Generated code is imported by other services, please keep it backwards compatibl
 [Install proto compiler and Go related tools](https://github.com/golang/protobuf#installation) first.
 
 ## Generate Go code
-`protoc -I ./ cart_service.proto --go_out=plugins=grpc:./..`
+Assuming that projects directories are located next to each other.
+
+```
+{projects}/github.com/cooldryplace
+	/cart
+	/certs
+	/proto
+	/proto-sources
+```
+
+Please use this command to compile proto files.
+`protoc -I ./ cart_service.proto --go_out=plugins=grpc:./../../..`
